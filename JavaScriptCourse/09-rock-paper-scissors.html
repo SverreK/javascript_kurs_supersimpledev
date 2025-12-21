@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rock Paper Scissors</title>
+  </head>
+
+  <body>
+    <h1>Rock Paper Scissors</h1>
+
+    <button
+      onclick="
+
+      game('Rock');
+
+      "
+    >
+      Rock
+    </button>
+
+    <button
+      onclick="
+
+      game('Paper');
+      "
+    >
+      Paper
+    </button>
+
+    <button
+      onclick="
+
+      game('Scissors');
+      "
+    >
+      Scissors
+    </button>
+
+    <p class="js-result"></p>
+    <p class="js-moves">Pick a move!</p>
+    <p class="js-score">Your score: 0, Machine score: 0</p>
+
+    <button
+      onclick="
+    score.machineScore = 0;
+    score.userScore = 0;
+    localStorage.removeItem('score');
+    resultText.innerHTML = '';
+    movesText.innerHTML = 'Pick a move!';
+    updateScoreElement();
+    alert('Game reset!');
+    "
+    >
+      Reset Game
+    </button>
+
+    <script>
+      //Local storage
+      const score = JSON.parse(localStorage.getItem('score')) || {
+        machineScore: 0,
+        userScore: 0,
+      };
+
+      updateScoreElement();
+      const resultText = document.querySelector('.js-result');
+      const movesText = document.querySelector('.js-moves');
+
+      /*
+      boolean shortcut -> score === null -> true -> !score -> true, om score ikkje eksisterar
+      if (!score) {
+        score = {
+          machineScore: 0,
+          userScore: 0,
+        };
+      }
+      */
+
+      function game(userMove) {
+        const machine = computerMove();
+        const user = userMove;
+
+        if (machine === user) {
+          score.machineScore++;
+          score.userScore++;
+          resultText.innerHTML = "It's a Tie!";
+        } else if (
+          (user === 'Rock' && machine === 'Paper') ||
+          (user === 'Paper' && machine === 'Scissors') ||
+          (user === 'Scissors' && machine === 'Rock')
+        ) {
+          score.machineScore++;
+          resultText.innerHTML = 'You lost!';
+        } else {
+          score.userScore++;
+          resultText.innerHTML = 'You win!';
+        }
+
+        //Lagrer score i localStorage
+        localStorage.setItem('score', JSON.stringify(score));
+
+        updateScoreElement();
+        movesText.innerHTML = `You ${user} | ${machine} Computer`;
+      }
+
+      function computerMove() {
+        const randomNumber = Math.random();
+
+        if (randomNumber >= 0 && randomNumber < 1 / 3) {
+          return 'Rock';
+        } else if (randomNumber > 1 / 3 && randomNumber < 2 / 3) {
+          return 'Paper';
+        }
+
+        return 'Scissors';
+      }
+
+      function updateScoreElement() {
+        document.querySelector(
+          '.js-score'
+        ).innerHTML = `Your score: ${score.userScore}, Machine score: ${score.machineScore}`;
+      }
+    </script>
+
+    <p>
+      <a href="09-dom-projects.html">Play Game!</a>
+    </p>
+  </body>
+</html>

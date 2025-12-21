@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>DOM Projects</title>
+    <style>
+      .subscribe-button {
+        border: none;
+        background-color: black;
+        color: white;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        font-weight: bold;
+        border-radius: 50px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <p>Youtube Subscribe Button</p>
+
+    <button
+      class="js-subscribe-button subscribe-button"
+      onclick="subscribe();
+    "
+    >
+      Subscribe
+    </button>
+
+    <br /><br />
+
+    <p>Rock Paper Scissors</p>
+
+    <p>
+      <a href="09-rock-paper-scissors.html">Click here</a>
+    </p>
+
+    <br /><br />
+
+    <p>Amazon Shipping Calculator</p>
+    <p>Orders under $40 =+ $10 shipping.</p>
+    <p>Orders over $40 = FREE shipping.</p>
+    <p>
+      <input
+        class="js-shipping"
+        type="text"
+        placeholder="Cost of order"
+        onkeydown="
+      handleCostKeydown(event);"
+      />
+      <button
+        onclick="
+      calculate()"
+      >
+        Calculate
+      </button>
+    </p>
+
+    <p class="js-total"></p>
+
+    <script>
+      function handleCostKeydown(event) {
+        if (event.key === 'Enter') {
+          calculate();
+        }
+      }
+
+      function subscribe() {
+        const btn = document.querySelector('.js-subscribe-button');
+        if (btn.innerHTML === 'Subscribe') {
+          btn.innerHTML = 'Subscribed';
+          btn.classList.add('is-subscribed');
+        } else btn.innerHTML = 'Subscribe';
+      }
+
+      function calculate() {
+        const value = Number(document.querySelector('.js-shipping').value);
+        let total = document.querySelector('.js-total');
+        if (value >= 50) total.innerHTML = `$${value}`;
+        else total.innerHTML = `$${value + 10}`;
+      }
+    </script>
+  </body>
+</html>

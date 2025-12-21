@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rock Paper Scissors</title>
+  </head>
+
+  <body>
+    <script>
+      //Lage produkt
+      const product = {
+        name: 'socks',
+        price: 1090,
+      };
+      console.log(product);
+      console.log(product.name);
+      console.log(product.price);
+
+      product.name = 'cotton socks';
+      console.log(product);
+
+      product.newProperty = true;
+      console.log(product);
+
+      delete product.newProduct;
+
+      //Shortcuts
+      const object1 = {
+        message: 'Hello World!',
+        year: 2025,
+      };
+
+      const { message, year } = object1;
+      console.log(message);
+      console.log(year);
+
+      const object5 = {
+        //message: message,
+        message,
+        //method: function function1() {
+        //  console.log('method');
+        //}
+        method() {
+          console.log('method');
+        },
+      };
+      console.log(object5);
+      object5.method();
+    </script>
+  </body>
+</html>
